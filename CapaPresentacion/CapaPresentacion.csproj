@@ -375,8 +375,16 @@
     <Content Include="assets\pluginzero\sweetalert\sweetalert.js" />
     <Content Include="assets\pluginzero\toastr\toastr.min.css" />
     <Content Include="assets\pluginzero\toastr\toastr.min.js" />
+    <Content Include="images\sinFoto.png" />
     <Content Include="Inicio.aspx" />
+    <Content Include="js\Masterpa.js" />
+    <Content Include="js\PanelCarreras.js" />
+    <Content Include="js\PanelDocentes.js" />
+    <Content Include="js\PanelGrados.js" />
     <Content Include="js\UsuariosPage.js" />
+    <Content Include="PanelCarreras.aspx" />
+    <Content Include="PanelDocentes.aspx" />
+    <Content Include="PanelGrados.aspx" />
     <Content Include="UsuariosPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -395,6 +403,27 @@
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PanelCarreras.aspx.cs">
+      <DependentUpon>PanelCarreras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelCarreras.aspx.designer.cs">
+      <DependentUpon>PanelCarreras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelDocentes.aspx.cs">
+      <DependentUpon>PanelDocentes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelDocentes.aspx.designer.cs">
+      <DependentUpon>PanelDocentes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelGrados.aspx.cs">
+      <DependentUpon>PanelGrados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelGrados.aspx.designer.cs">
+      <DependentUpon>PanelGrados.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuariosPage.aspx.cs">
       <DependentUpon>UsuariosPage.aspx</DependentUpon>
@@ -403,6 +432,7 @@
     <Compile Include="UsuariosPage.aspx.designer.cs">
       <DependentUpon>UsuariosPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utilidadesj.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="HomeMaster.Master" />

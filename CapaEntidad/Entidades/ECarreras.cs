@@ -7,5 +7,6 @@
         public string NombreCarrera { get; set; }
         public string Sigla { get; set; }
         public bool Estado { get; set; }
+        public string NombreGrado { get; set; }
     }
 }

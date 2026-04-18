@@ -12,6 +12,9 @@
         public string ImagenUrl { get; set; }
         public string CuentaBancaria { get; set; }
         public bool Estado { get; set; }
-        public string NombreCompleto => $"{Nombres} {Apellidos}";
+        // --- Propiedades extra para DataTables Server-Side ---
+        public int TotalRegistros { get; set; }
+        public int TotalFiltrados { get; set; }
+        //public string NombreCompleto => $"{Nombres} {Apellidos}";
     }
 }
