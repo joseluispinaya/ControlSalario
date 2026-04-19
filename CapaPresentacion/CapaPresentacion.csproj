@@ -382,6 +382,12 @@
     <Content Include="js\PanelDocentes.js" />
     <Content Include="js\PanelGrados.js" />
     <Content Include="js\UsuariosPage.js" />
+    <Content Include="MasterSecretarias\AsignacionDocente.aspx" />
+    <Content Include="MasterSecretarias\jsSecre\AsignacionDoc.js" />
+    <Content Include="MasterSecretarias\jsSecre\Masterpa.js" />
+    <Content Include="MasterSecretarias\jsSecre\PanelMaterias.js" />
+    <Content Include="MasterSecretarias\PanelInicio.aspx" />
+    <Content Include="MasterSecretarias\PanelMaterias.aspx" />
     <Content Include="PanelCarreras.aspx" />
     <Content Include="PanelDocentes.aspx" />
     <Content Include="PanelGrados.aspx" />
@@ -402,6 +408,34 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSecretarias\AsignacionDocente.aspx.cs">
+      <DependentUpon>AsignacionDocente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterSecretarias\AsignacionDocente.aspx.designer.cs">
+      <DependentUpon>AsignacionDocente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSecretarias\HomeSecretarias.Master.cs">
+      <DependentUpon>HomeSecretarias.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterSecretarias\HomeSecretarias.Master.designer.cs">
+      <DependentUpon>HomeSecretarias.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSecretarias\PanelInicio.aspx.cs">
+      <DependentUpon>PanelInicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterSecretarias\PanelInicio.aspx.designer.cs">
+      <DependentUpon>PanelInicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSecretarias\PanelMaterias.aspx.cs">
+      <DependentUpon>PanelMaterias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterSecretarias\PanelMaterias.aspx.designer.cs">
+      <DependentUpon>PanelMaterias.aspx</DependentUpon>
     </Compile>
     <Compile Include="PanelCarreras.aspx.cs">
       <DependentUpon>PanelCarreras.aspx</DependentUpon>
@@ -529,6 +563,7 @@
     <Content Include="assets\scss\_menu.scss" />
     <Content Include="assets\scss\_pages.scss" />
     <Content Include="assets\scss\_responsive.scss" />
+    <Content Include="MasterSecretarias\HomeSecretarias.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

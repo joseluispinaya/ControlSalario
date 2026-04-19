@@ -21,6 +21,12 @@ namespace CapaPresentacion
         }
 
         [WebMethod]
+        public static Respuesta<List<EDocente>> FiltroDocentes(string busqueda)
+        {
+            return NDocente.GetInstance().FiltroDocentes(busqueda);
+        }
+
+        [WebMethod]
         public static Respuesta<List<EDocente>> ListaDocentePaginado(int Omitir, int TamanoPagina, string Buscar)
         {
             return NDocente.GetInstance().ListaDocentePaginado(Omitir, TamanoPagina, Buscar);

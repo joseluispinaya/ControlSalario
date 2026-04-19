@@ -34,5 +34,10 @@ namespace CapaNegocio
         {
             return DDocente.GetInstance().ListaDocentePaginado(Omitir, TamanoPagina, Buscar);
         }
+
+        public Respuesta<List<EDocente>> FiltroDocentes(string Busqueda)
+        {
+            return DDocente.GetInstance().FiltroDocentes(Busqueda);
+        }
     }
 }

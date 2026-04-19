@@ -33,5 +33,15 @@ namespace CapaNegocio
         {
             return DGradoAcademico.GetInstance().GuardarOrEditGradoAcademicos(oGradoAcademico);
         }
+
+        public Respuesta<List<EGestiones>> ListaGestiones()
+        {
+            return DGradoAcademico.GetInstance().ListaGestiones();
+        }
+
+        public Respuesta<List<EGrupos>> ListaGrupos()
+        {
+            return DGradoAcademico.GetInstance().ListaGrupos();
+        }
     }
 }

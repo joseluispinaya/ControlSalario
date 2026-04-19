@@ -140,5 +140,90 @@ namespace CapaDatos
             return response;
         }
 
+        public Respuesta<List<EGestiones>> ListaGestiones()
+        {
+            try
+            {
+                List<EGestiones> rptLista = new List<EGestiones>();
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ListaGestiones", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new EGestiones()
+                                {
+                                    IdGestion = Convert.ToInt32(dr["IdGestion"]),
+                                    NombreGestion = dr["NombreGestion"].ToString(),
+                                    Estado = Convert.ToBoolean(dr["Estado"])
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<EGestiones>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenida correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<List<EGestiones>>()
+                {
+                    Estado = false,
+                    Data = null,
+                    Mensaje = $"Error al obtener la lista de grados académicos: {ex.Message}"
+                };
+            }
+        }
+
+        public Respuesta<List<EGrupos>> ListaGrupos()
+        {
+            try
+            {
+                List<EGrupos> rptLista = new List<EGrupos>();
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ListaGrupos", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new EGrupos()
+                                {
+                                    IdGrupo = Convert.ToInt32(dr["IdGrupo"]),
+                                    NombreGrupo = dr["NombreGrupo"].ToString(),
+                                    Estado = Convert.ToBoolean(dr["Estado"])
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<EGrupos>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenida correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<List<EGrupos>>()
+                {
+                    Estado = false,
+                    Data = null,
+                    Mensaje = $"Error al obtener la lista: {ex.Message}"
+                };
+            }
+        }
     }
 }

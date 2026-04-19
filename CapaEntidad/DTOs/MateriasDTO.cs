@@ -13,6 +13,7 @@
         public int HS { get; set; }
         public int IdGradoAcademico { get; set; }
         public string NombreCarrera { get; set; }
+        public string NombreSemestre { get; set; }
         public bool Estado { get; set; }
     }
 }
