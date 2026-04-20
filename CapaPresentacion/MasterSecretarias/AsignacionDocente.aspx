@@ -20,96 +20,100 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card" id="loadinzero">
+            <div class="card shadow-sm border-0" id="loadinzero">
                 <div class="card-body">
                     <input id="txtIdDocente" value="0" type="hidden" />
+
                     <div class="row">
-                        <div class="col-lg-9">
-                            <div class="row">
-                                <div class="col-sm-7">
-                                    <div class="media-main">
-                                        <a class="float-left" href="#">
-                                            <img class="thumb-lg rounded-circle" id="imgDoce" src="../images/sinFoto.png" alt="">
-                                        </a>
-                                        <div class="info pl-3">
-                                            <h4 id="lblNombres" class="mt-3">Esperando..</h4>
-                                            <p id="lblDatos" class="text-muted">Esperando..</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <hr>
-                                    <div class="form-group mt-3">
-                                        <label for="cboBuscarDocente">Buscar Docente</label>
-                                        <select class="form-control form-control-sm" id="cboBuscarDocente" style="width: 100%;">
-                                            <option value=""></option>
-                                        </select>
+                        <div class="col-md-5 mb-3">
+                            <div class="border rounded bg-light p-3 h-100">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img id="imgDoce" src="../images/sinFoto.png" alt="Perfil" class="rounded-circle shadow-sm mr-3" style="width: 65px; height: 65px; object-fit: cover;">
+                                    <div>
+                                        <h5 id="lblNombres" class="mb-1 text-primary font-weight-bold" style="font-size: 1.1rem;">Esperando..</h5>
+                                        <span id="lblDatos" class="badge badge-secondary p-1">Esperando..</span>
                                     </div>
                                 </div>
-                                <div class="col-sm-5">
-                                    
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cboGestion">Gestion</label>
-                                        </div>
-                                        <select class="custom-select" id="cboGestion">
-                                        </select>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cboMaterias">Materia</label>
-                                        </div>
-                                        <select class="custom-select" id="cboMaterias">
-                                        </select>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cboGrupos">Select Grupo</label>
-                                        </div>
-                                        <select class="custom-select" id="cboGrupos">
-                                        </select>
-                                    </div>
+                                <hr class="mt-0">
+                                <div class="form-group mb-0">
+                                    <label for="cboBuscarDocente" class="small font-weight-bold text-muted mb-1"><i class="fas fa-search mr-1"></i>Buscar Docente</label>
+                                    <select class="form-control form-control-sm" id="cboBuscarDocente" style="width: 100%;">
+                                        <option value=""></option>
+                                    </select>
                                 </div>
-                                
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-hp" title="Costo Hora">Costo Hr</span>
-                                </div>
-                                <input type="number" class="form-control form-new" id="txtCostoHora" name="Costo Hr" min="0" value="0" aria-describedby="addon-hp">
-                            </div>
-                            
-                            <div class="input-group input-group-sm mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-hl" title="Carga Horaria">Carga Hrs</span>
-                                </div>
-                                <input type="number" class="form-control form-new" id="txtCargaHoraria" name="Carga Hrs" min="0" value="0" aria-describedby="addon-hl">
-                            </div>
 
-                            <button type="button" id="btnGuardarRegistro" class="btn btn-sm btn-block btn-success">
-                                <i class="fas fa-save mr-2"></i>Guardar Asignacion
-                            </button>
+                        <div class="col-md-4 mb-3">
+                            <div class="p-2 h-100">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white font-weight-bold" style="width: 85px;">Gestión</span>
+                                    </div>
+                                    <select class="custom-select custom-select-sm" id="cboGestion"></select>
+                                </div>
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white font-weight-bold" style="width: 85px;">Materia</span>
+                                    </div>
+                                    <select class="custom-select custom-select-sm" id="cboMaterias"></select>
+                                </div>
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white font-weight-bold" style="width: 85px;">Grupo</span>
+                                    </div>
+                                    <select class="custom-select custom-select-sm" id="cboGrupos"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <div class="p-2 h-100 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="addon-hp" title="Costo Hora"><i class="fas fa-dollar-sign mr-1"></i>Costo Hr</span>
+                                        </div>
+                                        <input type="number" class="form-control input-sm text-right form-new" id="txtCostoHora" min="0" value="0">
+                                    </div>
+
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="addon-hl" title="Carga Horaria"><i class="fas fa-clock mr-1"></i>Carga Hrs</span>
+                                        </div>
+                                        <input type="number" class="form-control input-sm text-right form-new" id="txtCargaHoraria" min="0" value="0">
+                                    </div>
+                                </div>
+
+                                <div class="mt-auto">
+                                    <button type="button" id="btnNuevoRegistro" class="btn btn-sm btn-block btn-outline-info mb-3 font-weight-bold shadow-sm">
+                                        <i class="fas fa-plus mr-2"></i>Nuevo Registro
+                                    </button>
+
+                                    <button type="button" id="btnGuardarRegistro" class="btn btn-sm btn-block btn-success font-weight-bold shadow-sm" disabled>
+                                        <i class="fas fa-save mr-2"></i>Guardar Asignación
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header bg-primary py-2 px-4">
-                <h3 class="card-title m-0"><i class="fas fa-bookmark mr-2"></i>Lista Asignaciones de materias</h3>
-            </div>
-            <div class="card-body">
-                <div class="row mt-3">
-                    <div class="col-lg-12 col-sm-12 col-12">
-                        <table id="tbData" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 mt-2">
+                <div class="card-header bg-primary text-white py-2 px-4 border-0">
+                    <h6 class="card-title m-0"><i class="fas fa-bookmark mr-2"></i>Lista Asignaciones de materias</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive mt-2">
+                        <table id="tbData" class="table table-sm table-hover table-bordered" cellspacing="0" width="100%">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Id</th>
                                     <th>Docente</th>
@@ -117,7 +121,7 @@
                                     <th>Materia</th>
                                     <th>Grupo</th>
                                     <th>Carga Horaria</th>
-                                    <th>Opciones</th>
+                                    <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -127,7 +131,6 @@
             </div>
         </div>
     </div>
-</div>
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="footer" runat="server">

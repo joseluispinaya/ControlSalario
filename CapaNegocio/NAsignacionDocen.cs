@@ -39,5 +39,10 @@ namespace CapaNegocio
         {
             return DAsignacionDocen.GetInstance().EditarAsignacion(oModel);
         }
+
+        public Respuesta<List<AsigBiometricoDTO>> AsignacionBiometrico(int IdCarrera, int IdGestion)
+        {
+            return DAsignacionDocen.GetInstance().AsignacionBiometrico(IdCarrera, IdGestion);
+        }
     }
 }

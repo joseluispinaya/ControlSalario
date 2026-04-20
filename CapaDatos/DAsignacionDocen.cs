@@ -214,5 +214,55 @@ namespace CapaDatos
             return response;
         }
 
+        public Respuesta<List<AsigBiometricoDTO>> AsignacionBiometrico(int IdCarrera, int IdGestion)
+        {
+            try
+            {
+                List<AsigBiometricoDTO> rptLista = new List<AsigBiometricoDTO>();
+
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerAsignacionesParaBiometrico", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@IdCarrera", IdCarrera);
+                        comando.Parameters.AddWithValue("@IdGestion", IdGestion);
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new AsigBiometricoDTO
+                                {
+                                    IdAsignacion = Convert.ToInt32(dr["IdAsignacion"]),
+                                    Docente = dr["Docente"].ToString(),
+                                    NombreMateria = dr["NombreMateria"].ToString(),
+                                    NombreGrupo = dr["NombreGrupo"].ToString(),
+                                    NombreSemestre = dr["NombreSemestre"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<AsigBiometricoDTO>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenidos correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier error inesperado
+                return new Respuesta<List<AsigBiometricoDTO>>()
+                {
+                    Estado = false,
+                    Mensaje = "Ocurrió un error: " + ex.Message,
+                    Data = null
+                };
+            }
+        }
+
     }
 }
