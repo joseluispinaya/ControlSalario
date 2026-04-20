@@ -20,15 +20,13 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="card" id="loadinzero">
                 <div class="card-body">
-                    <%--<h4 class="m-t-0 m-b-15">Detalle del Cliente</h4>--%>
                     <input id="txtIdDocente" value="0" type="hidden" />
                     <div class="row">
                         <div class="col-lg-9">
                             <div class="row">
                                 <div class="col-sm-7">
-                                    <%--<h4 class="m-t-0 m-b-15 text-center">Detalle del Docente</h4>--%>
                                     <div class="media-main">
                                         <a class="float-left" href="#">
                                             <img class="thumb-lg rounded-circle" id="imgDoce" src="../images/sinFoto.png" alt="">
@@ -77,19 +75,19 @@
                         <div class="col-lg-3">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-hp" title="Costo Hora">Categoria</span>
+                                    <span class="input-group-text" id="addon-hp" title="Costo Hora">Costo Hr</span>
                                 </div>
-                                <input type="number" class="form-control form-new model" id="txtCostoHora" name="Categoria" min="0" value="0" aria-describedby="addon-hp">
+                                <input type="number" class="form-control form-new" id="txtCostoHora" name="Costo Hr" min="0" value="0" aria-describedby="addon-hp">
                             </div>
                             
                             <div class="input-group input-group-sm mb-4">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-hl" title="Carga Horaria">Carga Hrs</span>
                                 </div>
-                                <input type="number" class="form-control form-new model" id="txtCargaHoraria" name="Carga Hrs" min="0" value="0" aria-describedby="addon-hl">
+                                <input type="number" class="form-control form-new" id="txtCargaHoraria" name="Carga Hrs" min="0" value="0" aria-describedby="addon-hl">
                             </div>
 
-                            <button type="button" id="btnRegistro" class="btn btn-sm btn-block btn-success">
+                            <button type="button" id="btnGuardarRegistro" class="btn btn-sm btn-block btn-success">
                                 <i class="fas fa-save mr-2"></i>Guardar Asignacion
                             </button>
                         </div>

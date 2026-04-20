@@ -25,18 +25,21 @@ namespace CapaPresentacion.MasterSecretarias
             return NMaterias.GetInstance().ListaSemestres();
         }
 
+        // TODO: Refactorizar con Id de sesion Carrera
         [WebMethod]
         public static Respuesta<List<MateriasDTO>> MateriasPorCarreraYSemestre(int IdSemestre)
         {
             return NMaterias.GetInstance().ListaMateriasIds(1, IdSemestre);
         }
 
+        // TODO: Refactorizar con Id de sesion
         [WebMethod]
         public static Respuesta<List<MateriasDTO>> MateriasPorCarreraYSemestreAsi()
         {
             return NMaterias.GetInstance().ListaMateriasIds(1, 0);
         }
 
+        // TODO: Refactorizar con Id de sesion registro
         [WebMethod]
         public static Respuesta<int> GuardarOrEditMateria(EMaterias objeto)
         {

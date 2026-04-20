@@ -19,6 +19,13 @@ namespace CapaPresentacion.MasterSecretarias
 
         }
 
+        // TODO: Refactorizar con Id de sesion Carrera
+        [WebMethod]
+        public static Respuesta<List<ObtenerAsigDocDTO>> ObtenerAsignacioneDocente()
+        {
+            return NAsignacionDocen.GetInstance().ObtenerAsignacioneDocente(1);
+        }
+
         [WebMethod]
         public static Respuesta<List<EGestiones>> ListaGestiones()
         {
@@ -30,5 +37,18 @@ namespace CapaPresentacion.MasterSecretarias
         {
             return NGradoAcademico.GetInstance().ListaGrupos();
         }
+
+        [WebMethod]
+        public static Respuesta<int> RegistroAsignacion(EAsignacionDocen objeto)
+        {
+            return NAsignacionDocen.GetInstance().RegistroAsignacion(objeto);
+        }
+
+        [WebMethod]
+        public static Respuesta<int> EditarAsignacion(EAsignacionDocen objeto)
+        {
+            return NAsignacionDocen.GetInstance().EditarAsignacion(objeto);
+        }
+
     }
 }
