@@ -59,34 +59,46 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title m-0" id="myModalLabel">Directores</h4>
+                    <h4 class="modal-title m-0" id="myModalLabel">Usuarios</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-9">
                             <div class="form-row">
-                                <div class="form-group col-sm-4">
+                                <div class="form-group col-sm-6">
                                     <label for="txtNombres">Nombre</label>
-                                    <input type="text" class="form-control input-sm model form-new" id="txtNombres" name="Nombres">
+                                    <input type="text" class="form-control input-sm form-new model" id="txtNombres" name="Nombres">
                                 </div>
-                                <div class="form-group col-sm-4">
+                                <div class="form-group col-sm-6">
                                     <label for="txtApellidos">Apellidos</label>
-                                    <input type="text" class="form-control input-sm model form-new" id="txtApellidos" name="Apellidos">
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="txtCorreo">Correo</label>
-                                    <input type="text" class="form-control input-sm model" id="txtCorreo" name="Correo">
+                                    <input type="text" class="form-control input-sm form-new model" id="txtApellidos" name="Apellidos">
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
-                                    <label for="txtNroci">Nro CI</label>
-                                    <input type="text" class="form-control input-sm model" id="txtNroci" name="Nro ci">
+                                <div class="form-group col-sm-8">
+                                    <label for="txtCorreo">Correo</label>
+                                    <input type="text" class="form-control input-sm form-new model" id="txtCorreo" name="Correo">
                                 </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="cboUnidadEd">Unidad Ed</label>
-                                    <select class="form-control form-control-sm" id="cboUnidadEd">
+                                <div class="form-group col-sm-4">
+                                    <label for="cboRoles">Roles</label>
+                                    <select class="form-control form-control-sm form-new" id="cboRoles">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label for="txtNroci">Nro CI</label>
+                                    <input type="text" class="form-control input-sm form-new model" id="txtNroci" name="Nro ci">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="cboGradosData">Grados</label>
+                                    <select class="form-control form-control-sm form-new" id="cboGradosData">
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="cboCarreras">Carreras</label>
+                                    <select class="form-control form-control-sm form-new" id="cboCarreras" disabled>
                                     </select>
                                 </div>
 
@@ -94,7 +106,7 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-3">
                                     <label for="cboEstado">Estado</label>
-                                    <select class="form-control" id="cboEstado">
+                                    <select class="form-control form-new" id="cboEstado">
                                         <option value="1">Activo</option>
                                         <option value="0">No Activo</option>
                                     </select>
@@ -108,10 +120,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <div class="form-row h-100 d-flex align-items-center justify-content-center">
                                 <div class="form-group col-sm-12 text-center">
-                                    <img id="imgDirectReg" src="assets/images/users/avatar-1.jpg" alt="Foto usuario" class="est-perfil">
+                                    <img id="imgDirectReg" src="images/sinFoto.png" alt="Foto usuario" class="rounded-circle est-perfil">
                                 </div>
                             </div>
                         </div>

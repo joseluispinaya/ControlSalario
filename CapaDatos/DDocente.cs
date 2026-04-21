@@ -91,6 +91,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 response.Estado = false;
+                response.Valor = "error";
                 response.Mensaje = $"Error al guardar o editar: {ex.Message}";
             }
             return response;

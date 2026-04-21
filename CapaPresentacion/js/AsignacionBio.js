@@ -195,23 +195,44 @@ function cargarDatosBio(idCarrera, idGestion) {
 
                     $("#tbData tbody").append(
                         $("<tr>").append(
-                            $("<td>").text(item.Docente),
-                            $("<td>").text(item.NombreMateria),
-                            $("<td>").text(item.NombreSemestre),
-                            $("<td>").append(
+
+                            $("<td class='text-center'>").append(
+                                $("<span>")
+                                    .addClass("docente-badge")
+                                    .text(item.Docente)
+                            ),
+
+                            $("<td>").html(
+                                "<i class='fas fa-book mr-2 text-primary'></i>" +
+                                item.NombreMateria
+                            ),
+
+                            $("<td class='text-center'>").append(
+                                $("<span>")
+                                    .addClass("semestre-badge")
+                                    .text(item.NombreSemestre)
+                            ),
+
+                            $("<td class='text-center'>").append(
                                 $("<input>").attr({
                                     type: "number",
                                     value: 0,
                                     min: 0,
                                     step: "1",
-                                    class: "form-control input-sm cantidad-input input-reducido form-new",
+                                    class: "form-control cantidad-input input-reducido input-atraso",
                                     "data-index": index
                                 }).on("input", function () {
-                                    if (this.value === "" || isNaN(this.value) || parseInt(this.value) < 0) {
+
+                                    if (this.value === "" ||
+                                        isNaN(this.value) ||
+                                        parseInt(this.value) < 0) {
+
                                         this.value = 0;
                                     }
+
                                 })
                             )
+
                         )
                     );
                 });

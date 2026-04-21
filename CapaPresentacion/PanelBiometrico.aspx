@@ -2,8 +2,52 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .input-reducido {
-            width: 60px;
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
         }
+
+        #tbData {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+            #tbData tbody tr {
+                transition: all .2s ease;
+            }
+
+                #tbData tbody tr:hover {
+                    background: #f5f9ff;
+                    transform: scale(1.01);
+                }
+
+            #tbData td {
+                vertical-align: middle;
+            }
+
+        .docente-badge {
+            background: #eaf4ff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #0d6efd;
+        }
+
+        .semestre-badge {
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .input-atraso {
+            border: 2px solid #28a745;
+            border-radius: 20px;
+        }
+
+            .input-atraso:focus {
+                box-shadow: 0 0 6px rgba(40,167,69,.4);
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="titulo" runat="server">
@@ -51,14 +95,14 @@
                         </div>
                     </div>
 
-                    <div class="table-responsive mt-2">
-                        <table id="tbData" class="table table-sm table-hover align-middle" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Docente</th>
-                                    <th>Materia</th>
-                                    <th>Semestre</th>
-                                    <th>Min. Atraso</th>
+                    <div class="table-responsive mt-3">
+                        <table id="tbData" class="table table-sm table-bordered table-hover shadow-sm">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width: 35%">Docente</th>
+                                    <th style="width: 35%">Materia</th>
+                                    <th style="width: 15%">Semestre</th>
+                                    <th style="width: 15%">Min. Atraso</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -71,7 +115,7 @@
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cboMes">Seleccione Mes</label>
+                                            <label class="input-group-text" for="cboMes">Seleccione un Mes</label>
                                         </div>
                                         <select class="custom-select custom-select-sm" id="cboMes">
                                         </select>
