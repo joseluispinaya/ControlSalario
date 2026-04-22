@@ -1,4 +1,77 @@
 ﻿
+$(document).ready(function () {
+
+    const usuarioLog = sessionStorage.getItem('usuaEmi');
+
+    if (!usuarioLog) {
+        window.location.replace('Login.aspx');
+        return;
+    }
+
+    try {
+        const usua = JSON.parse(usuarioLog);
+
+        $("#imgUsuarioMe").attr("src", usua.FotoUrl || "images/sinFoto.png");
+        $("#imageUserMe").attr("src", usua.FotoUrl || "images/sinFoto.png");
+        $("#nombreusuariome").text(usua.Apellidos);
+        $("#rolusuariome").text(usua.NombreRol);
+        $("#rolnomme").text(usua.Nombres);
+
+    } catch (error) {
+        console.error("Error leyendo sesión", error);
+        sessionStorage.clear();
+        window.location.replace('Login.aspx');
+    }
+
+});
+
+// Asumiendo que tu botón de salir tiene el id "btnCerrarSesion" NombreRol
+$("#btnCerrarSesion").on("click", function (e) {
+    e.preventDefault();
+
+    // Opcional: Un SweetAlert preguntando si está seguro (Mejora de UX)
+    swal({
+        title: "¿Cerrar Sesión?",
+        text: "¿Estás seguro que deseas salir del sistema?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "Sí, salir",
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: false
+    }, function () {
+
+        // Llamada AJAX a tu WebMethod perfecto
+        $.ajax({
+            type: "POST",
+            url: "Inicio.aspx/CerrarSesion", // O la ruta donde lo hayas puesto
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.d.Estado) {
+
+                    // ==========================================
+                    // EL PASO CRÍTICO: Limpiar el Storage del navegador
+                    // ==========================================
+                    //sessionStorage.removeItem('usuaEmi'); 
+                    sessionStorage.clear();
+                    // O si quieres borrar todo: sessionStorage.clear();
+
+                    // Redirigimos al Login
+                    //window.location.href = "Login.aspx";
+                    window.location.replace('Login.aspx');
+                } else {
+                    swal("Error", "No se pudo cerrar la sesión correctamente.", "error");
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                swal("Error", "Fallo de comunicación con el servidor.", "error");
+            }
+        });
+    });
+});
+
 function MostrarAlerta(titulo, mensaje, tipo) {
     // Si no se envía un tipo, por defecto será 'success'
     swal(titulo, mensaje, tipo || "success");

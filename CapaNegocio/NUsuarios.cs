@@ -1,11 +1,12 @@
-﻿using System;
+﻿using CapaDatos;
+using CapaEntidad.DTOs;
+using CapaEntidad.Entidades;
+using CapaEntidad.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CapaDatos;
-using CapaEntidad.Entidades;
-using CapaEntidad.Responses;
 
 namespace CapaNegocio
 {
@@ -37,6 +38,11 @@ namespace CapaNegocio
         public Respuesta<List<ERoles>> ListaRoles()
         {
             return DUsuarios.GetInstance().ListaRoles();
+        }
+
+        public Respuesta<List<UsuarioDTO>> ListaUsuarios()
+        {
+            return DUsuarios.GetInstance().ListaUsuarios();
         }
 
         public Respuesta<EUsuarios> LoginUsuario(string Correo)

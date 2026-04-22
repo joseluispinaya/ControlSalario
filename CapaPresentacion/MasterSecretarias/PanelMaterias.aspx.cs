@@ -25,26 +25,85 @@ namespace CapaPresentacion.MasterSecretarias
             return NMaterias.GetInstance().ListaSemestres();
         }
 
-        // TODO: Refactorizar con Id de sesion Carrera
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public static Respuesta<List<MateriasDTO>> MateriasPorCarreraYSemestre(int IdSemestre)
+        {
+            // 1. Validar Sesión
+            if (HttpContext.Current.Session["UsuarioLogueado"] == null)
+            {
+                return new Respuesta<List<MateriasDTO>> { Estado = false, Mensaje = "Su sesión ha expirado. Recargue la página." };
+            }
+
+            try
+            {
+                // Obtener el IdCarrera de Secretaria de la sesión (Seguro)
+                EUsuarios usuari = (EUsuarios)HttpContext.Current.Session["UsuarioLogueado"];
+
+                return NMaterias.GetInstance().ListaMateriasIds(usuari.IdCarrera, IdSemestre);
+            }
+            catch (Exception ex)
+            {
+                // Captura cualquier error no previsto en la capa de presentación
+                return new Respuesta<List<MateriasDTO>> { Estado = false, Mensaje = "Ocurrió un error inesperado: " + ex.Message };
+            }
+        }
+
+        // solo para pruebas, eliminar luego
+        [WebMethod]
+        public static Respuesta<List<MateriasDTO>> MateriasPorCarreraYSemestrePrue(int IdSemestre)
         {
             return NMaterias.GetInstance().ListaMateriasIds(1, IdSemestre);
         }
 
-        // TODO: Refactorizar con Id de sesion
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public static Respuesta<List<MateriasDTO>> MateriasPorCarreraYSemestreAsi()
         {
-            return NMaterias.GetInstance().ListaMateriasIds(1, 0);
+            // 1. Validar Sesión
+            if (HttpContext.Current.Session["UsuarioLogueado"] == null)
+            {
+                return new Respuesta<List<MateriasDTO>> { Estado = false, Mensaje = "Su sesión ha expirado. Recargue la página." };
+            }
+
+            try
+            {
+                // Obtener el IdCarrera de Secretaria de la sesión (Seguro)
+                EUsuarios usuari = (EUsuarios)HttpContext.Current.Session["UsuarioLogueado"];
+
+                return NMaterias.GetInstance().ListaMateriasIds(usuari.IdCarrera, 0);
+            }
+            catch (Exception ex)
+            {
+                // Captura cualquier error no previsto en la capa de presentación
+                return new Respuesta<List<MateriasDTO>> { Estado = false, Mensaje = "Ocurrió un error inesperado: " + ex.Message };
+            }
         }
 
-        // TODO: Refactorizar con Id de sesion registro
-        [WebMethod]
+        //[WebMethod]
+        //public static Respuesta<List<MateriasDTO>> MateriasPorCarreraYSemestreAsiPrue()
+        //{
+        //    return NMaterias.GetInstance().ListaMateriasIds(1, 0);
+        //}
+
+        [WebMethod(EnableSession = true)]
         public static Respuesta<int> GuardarOrEditMateria(EMaterias objeto)
         {
-            objeto.IdCarrera = 1;
-            return NMaterias.GetInstance().GuardarOrEditMateria(objeto);
+            if (HttpContext.Current.Session["UsuarioLogueado"] == null)
+            {
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Su sesión ha expirado. Recargue la página." };
+            }
+
+            try
+            {
+                EUsuarios usuari = (EUsuarios)HttpContext.Current.Session["UsuarioLogueado"];
+
+                objeto.IdCarrera = usuari.IdCarrera;
+
+                return NMaterias.GetInstance().GuardarOrEditMateria(objeto);
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Ocurrió un error: " + ex.Message };
+            }
         }
     }
 }

@@ -27,6 +27,12 @@ namespace CapaPresentacion
         }
 
         [WebMethod]
+        public static Respuesta<List<UsuarioDTO>> ListaUsuarios()
+        {
+            return NUsuarios.GetInstance().ListaUsuarios();
+        }
+
+        [WebMethod]
         public static Respuesta<int> GuardarOrEditUsuarios(EUsuarios objeto, string base64Image)
         {
             try
@@ -51,14 +57,14 @@ namespace CapaPresentacion
                 // 2. Manejo de la clave
                 if (objeto.IdUsuario == 0)
                 {
-                    string clavePlana = objeto.NombreRol;
+                    string clavePlana = objeto.NroCi;
                     objeto.Clave = utilidades.Hash(clavePlana);
                 }
                 else
                 {
                     objeto.Clave = "";
                 }
-
+                //return new Respuesta<int> { Estado = true, Valor = "success", Mensaje = objeto.Clave };
                 return NUsuarios.GetInstance().GuardarOrEditUsuarios(objeto);
             }
             catch (Exception ex)

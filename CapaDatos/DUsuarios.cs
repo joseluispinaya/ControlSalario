@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using CapaEntidad.Entidades;
 using CapaEntidad.Responses;
+using CapaEntidad.DTOs;
 
 namespace CapaDatos
 {
@@ -44,10 +45,13 @@ namespace CapaDatos
                         cmd.Parameters.AddWithValue("@Nombres", oModel.Nombres);
                         cmd.Parameters.AddWithValue("@Apellidos", oModel.Apellidos);
                         cmd.Parameters.AddWithValue("@Correo", oModel.Correo);
+                        // Usamos el operador de coalescencia nula (??) para simplificar
+                        // cmd.Parameters.AddWithValue("@Clave", oModel.Clave ?? "");
                         // Blindaje contra nulos en la Clave (Si es Update, puede que venga nula. La mandamos vacía para que el SP la ignore)
                         cmd.Parameters.AddWithValue("@Clave", string.IsNullOrEmpty(oModel.Clave) ? "" : oModel.Clave);
                         cmd.Parameters.AddWithValue("@FotoUrl", string.IsNullOrEmpty(oModel.FotoUrl) ? "" : oModel.FotoUrl);
                         cmd.Parameters.AddWithValue("@Estado", oModel.Estado);
+                        cmd.Parameters.AddWithValue("@NroCi", oModel.NroCi);
 
                         SqlParameter outputParam = new SqlParameter("@Resultado", SqlDbType.Int)
                         {
@@ -65,7 +69,7 @@ namespace CapaDatos
                     case 1: // Duplicado
                         response.Estado = false;
                         response.Valor = "warning";
-                        response.Mensaje = "Ocurrio un problema el Correo ya existe.";
+                        response.Mensaje = "El correo electrónico ya se encuentra registrado por otro usuario.";
                         break;
 
                     case 2: // Registro Nuevo
@@ -127,6 +131,7 @@ namespace CapaDatos
                                     Clave = dr["Clave"].ToString(),
                                     FotoUrl = dr["FotoUrl"].ToString(),
                                     Estado = Convert.ToBoolean(dr["Estado"]),
+                                    NroCi = dr["NroCi"].ToString(),
                                     NombreRol = dr["NombreRol"].ToString()
                                 };
                             }
@@ -192,6 +197,62 @@ namespace CapaDatos
                     Estado = false,
                     Data = null,
                     Mensaje = $"Error al obtener la lista: {ex.Message}"
+                };
+            }
+        }
+
+        public Respuesta<List<UsuarioDTO>> ListaUsuarios()
+        {
+            try
+            {
+                List<UsuarioDTO> rptLista = new List<UsuarioDTO>();
+
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ListaUsuarios", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new UsuarioDTO
+                                {
+                                    IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                                    IdRol = Convert.ToInt32(dr["IdRol"]),
+                                    NombreRol = dr["NombreRol"].ToString(),
+                                    IdCarrera = Convert.ToInt32(dr["IdCarrera"]),
+                                    IdGradoAcademico = Convert.ToInt32(dr["IdGradoAcademico"]),
+                                    NombreCarrera = dr["NombreCarrera"].ToString(),
+                                    Nombres = dr["Nombres"].ToString(),
+                                    Apellidos = dr["Apellidos"].ToString(),
+                                    NroCi = dr["NroCi"].ToString(),
+                                    Correo = dr["Correo"].ToString(),
+                                    FotoUrl = dr["FotoUrl"].ToString(),
+                                    Estado = Convert.ToBoolean(dr["Estado"]),
+                                    FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]).ToString("dd/MM/yyyy")
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<UsuarioDTO>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenidos correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier error inesperado
+                return new Respuesta<List<UsuarioDTO>>()
+                {
+                    Estado = false,
+                    Mensaje = "Ocurrió un error: " + ex.Message,
+                    Data = null
                 };
             }
         }

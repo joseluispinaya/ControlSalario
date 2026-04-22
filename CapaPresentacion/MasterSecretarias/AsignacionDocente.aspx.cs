@@ -19,9 +19,32 @@ namespace CapaPresentacion.MasterSecretarias
 
         }
 
-        // TODO: Refactorizar con Id de sesion Carrera
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public static Respuesta<List<ObtenerAsigDocDTO>> ObtenerAsignacioneDocente()
+        {
+            // 1. Validar Sesión
+            if (HttpContext.Current.Session["UsuarioLogueado"] == null)
+            {
+                return new Respuesta<List<ObtenerAsigDocDTO>> { Estado = false, Mensaje = "Su sesión ha expirado. Recargue la página." };
+            }
+
+            try
+            {
+                // Obtener el IdCarrera de Secretaria de la sesión (Seguro)
+                EUsuarios usuari = (EUsuarios)HttpContext.Current.Session["UsuarioLogueado"];
+
+                return NAsignacionDocen.GetInstance().ObtenerAsignacioneDocente(usuari.IdCarrera);
+            }
+            catch (Exception ex)
+            {
+                // Captura cualquier error no previsto en la capa de presentación
+                return new Respuesta<List<ObtenerAsigDocDTO>> { Estado = false, Mensaje = "Ocurrió un error inesperado: " + ex.Message };
+            }
+        }
+
+        // no usar este método, es solo para pruebas
+        [WebMethod]
+        public static Respuesta<List<ObtenerAsigDocDTO>> ObtenerAsignacioneDocentePrue()
         {
             return NAsignacionDocen.GetInstance().ObtenerAsignacioneDocente(1);
         }

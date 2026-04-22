@@ -44,6 +44,7 @@
     <Compile Include="DTOs\AsigBiometricoDTO.cs" />
     <Compile Include="DTOs\MateriasDTO.cs" />
     <Compile Include="DTOs\ObtenerAsigDocDTO.cs" />
+    <Compile Include="DTOs\UsuarioDTO.cs" />
     <Compile Include="Entidades\EAsignacionDocen.cs" />
     <Compile Include="Entidades\EAsistenciaBiome.cs" />
     <Compile Include="Entidades\ECarreras.cs" />

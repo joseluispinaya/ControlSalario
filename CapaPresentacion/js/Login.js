@@ -18,7 +18,7 @@ $('#btnIngresar').on('click', function () {
 function loginSistema(usuario, password) {
 
     $.ajax({
-        url: "Login.aspx/Logeo",
+        url: "Login.aspx/InicioSesion",
         type: "POST",
         data: JSON.stringify({ Correo: usuario, Clave: password }),
         dataType: "json",

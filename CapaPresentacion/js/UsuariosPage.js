@@ -268,7 +268,7 @@ $("#btnGuardarCambios").on("click", function () {
         Nombres: $("#txtNombres").val().trim(),
         Apellidos: $("#txtApellidos").val().trim(),
         Correo: $("#txtCorreo").val().trim(),
-        NombreRol: $("#txtNroci").val().trim(),
+        NroCi: $("#txtNroci").val().trim(),
         Estado: ($("#cboEstado").val() === "1" ? true : false),
         FotoUrl: "" // Lo enviamos siempre vacío. Si hay foto nueva, el Base64 la reemplazará en C#.
     };
