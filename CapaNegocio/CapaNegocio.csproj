@@ -42,10 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NAsignacionDocen.cs" />
+    <Compile Include="NAsistenciaBiome.cs" />
     <Compile Include="NCarrera.cs" />
     <Compile Include="NDocente.cs" />
     <Compile Include="NGradoAcademico.cs" />
     <Compile Include="NMaterias.cs" />
+    <Compile Include="NPlanillaPago.cs" />
     <Compile Include="NUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

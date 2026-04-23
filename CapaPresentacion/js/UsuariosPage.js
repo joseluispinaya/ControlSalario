@@ -3,9 +3,88 @@ let tablaData;
 let idEditar = 0;
 
 $(document).ready(function () {
+    listarUsuarios();
     cargarRoles();
     cargarGradosAcadeTable();
 });
+
+function listarUsuarios() {
+    tablaData = $("#tbDatas").DataTable({
+        responsive: true,
+        "ajax": {
+            "url": 'UsuariosPage.aspx/ListaUsuarios',
+            "type": "POST",
+            "contentType": "application/json; charset=utf-8",
+            "dataType": "json",
+            "data": function (d) {
+                return JSON.stringify(d);
+            },
+            "dataSrc": function (json) {
+                return json.d.Estado ? json.d.Data : [];
+            }
+        },
+        "columns": [
+            // 1. Columna Imagen
+            {
+                "data": "FotoUrl",
+                "orderable": false,
+                "searchable": false,
+                "className": "text-center align-middle",
+                render: function (data) {
+                    const src = data ? data : 'images/sinFoto.png'; // Asegúrate que la ruta sea correcta
+                    // Agregamos shadow-sm a la foto para que resalte
+                    return `<img src="${src}" alt="Perfil" class="rounded-circle shadow-sm" style="width: 45px; height: 45px; object-fit: cover; border: 2px solid #fff;">`;
+                }
+            },
+            // 2. Columna Nombre y Carrera combinados (El toque Senior)
+            {
+                "data": null,
+                "className": "align-middle",
+                render: function (data) {
+                    // data.FullName viene de tu propiedad de solo lectura
+                    // data.NombreCarrera viene de tu SP
+                    return `<div>
+                                <span class="font-weight-bold text-dark" style="font-size: 1.05rem;">${data.FullName}</span><br>
+                                <small class="text-muted"><i class="fas fa-graduation-cap mr-1"></i>${data.NombreCarrera || 'Asignación Global'}</small>
+                            </div>`;
+                }
+            },
+            // 3. Columna Rol
+            {
+                "data": "NombreRol",
+                "className": "align-middle font-weight-bold text-info"
+            },
+            // 4. Columna CI
+            { "data": "NroCi", "className": "align-middle" },
+            // 5. Columna Correo
+            { "data": "Correo", "className": "align-middle text-muted" },
+            // 6. Columna Estado
+            {
+                "data": "Estado",
+                "className": "text-center align-middle",
+                render: function (data) {
+                    // Badges con un padding un poco más amplio (px-2 py-1)
+                    if (data === true)
+                        return '<span class="badge badge-success px-2 py-1 shadow-sm">Activo</span>';
+                    else
+                        return '<span class="badge badge-secondary px-2 py-1 shadow-sm">Inactivo</span>';
+                }
+            },
+            // 7. Acciones
+            {
+                "defaultContent": '<button class="btn btn-outline-primary btn-editar btn-sm mr-2 shadow-sm" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>' +
+                    '<button class="btn btn-outline-info btn-detalle btn-sm shadow-sm" title="Ver Detalles"><i class="fas fa-address-book"></i></button>',
+                "orderable": false,
+                "searchable": false,
+                "className": "text-center align-middle"
+            }
+        ],
+        "order": [],
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        }
+    });
+}
 
 function cargarRoles() {
 
@@ -98,13 +177,12 @@ $("#cboGradosData").on("change", function () {
     $("#cboCarreras").prop("disabled", true);
 
     if (idGrados) {
-        cargarCarreras(idGrados);
+        cargarCarreras(idGrados, null);
     }
 });
 
-function cargarCarreras(idGrados) {
+function cargarCarreras(idGrados, carreraPreseleccionada) {
 
-    // Mostramos un texto de "Cargando..." mientras esperamos la respuesta
     $("#cboCarreras").html('<option value="">Cargando...</option>');
 
     var request = {
@@ -120,16 +198,18 @@ function cargarCarreras(idGrados) {
         success: function (response) {
             if (response.d.Estado) {
 
-                // 1. Empezamos con la opción por defecto
                 let opcionesHTML = '<option value="">Seleccione</option>';
 
-                // 2. Concatenamos todas las opciones en la variable (en memoria)
                 $.each(response.d.Data, function (i, row) {
                     opcionesHTML += `<option value="${row.IdCarrera}">${row.NombreCarrera}</option>`;
                 });
 
                 $("#cboCarreras").html(opcionesHTML);
                 $("#cboCarreras").prop("disabled", false);
+
+                if (carreraPreseleccionada) {
+                    $("#cboCarreras").val(carreraPreseleccionada);
+                }
 
             } else {
                 $("#cboCarreras").html('<option value="">Error al cargar</option>');
@@ -152,8 +232,9 @@ $("#btnRegistro").on("click", function () {
     $("#txtNroci").val("");
     $("#cboRoles").val("");
 
-    //$("#cboGradosData").val("");
-    //$("#cboCarreras").val("");
+    $("#cboGradosData").val("");
+    $("#cboCarreras").empty().append('<option value="">-- Seleccione --</option>');
+    $("#cboCarreras").prop("disabled", true);
 
     $("#cboEstado").val(1).prop("disabled", true);
 
@@ -166,6 +247,51 @@ $("#btnRegistro").on("click", function () {
     $("#mdData").modal("show");
 
 })
+
+$('#tbDatas tbody').on('click', '.btn-editar', function () {
+
+    let fila = $(this).closest('tr');
+    if (fila.hasClass('child')) {
+        fila = fila.prev();
+    }
+
+    let data = tablaData.row(fila).data();
+    idEditar = data.IdUsuario;
+
+    $("#txtNombres").val(data.Nombres);
+    $("#txtApellidos").val(data.Apellidos);
+    $("#txtCorreo").val(data.Correo);
+    $("#txtNroci").val(data.NroCi);
+    $("#cboRoles").val(data.IdRol);
+
+    $("#cboGradosData").val(data.IdGradoAcademico);
+    cargarCarreras(data.IdGradoAcademico, data.IdCarrera);
+    //$("#cboCarreras").val("");
+
+    $("#cboEstado").val(data.Estado ? 1 : 0).prop("disabled", false);
+
+    $("#imgDirectReg").attr("src", data.FotoUrl || "images/sinFoto.png");
+    $("#txtFotoUr").val("");
+    $(".custom-file-label").text('Ningún archivo seleccionado');
+
+    $("#myModalLabel").text("Editar Registro");
+    $("#mdData").modal("show");
+});
+
+
+$('#tbDatas tbody').on('click', '.btn-detalle', function () {
+
+    let fila = $(this).closest('tr');
+
+    if (fila.hasClass('child')) {
+        fila = fila.prev();
+    }
+
+    let data = tablaData.row(fila).data();
+    const textoSms = `Detalles del Usuario: ${data.Nombres}.`;
+    MostrarAlerta("¡Mensaje!", textoSms, "info");
+
+});
 
 const TAMANO_MAXIMO = 2 * 1024 * 1024; // 2 MB en bytes
 
@@ -314,6 +440,11 @@ function enviarAjaxUsuarios(objeto, base64String) {
 
             if (response.d.Estado) {
                 $("#mdData").modal("hide");
+                // RECARGA OPTIMIZADA (No destruye la tabla)
+                if (tablaData) {
+                    tablaData.ajax.reload(null, false);
+                }
+
                 idEditar = 0;
             }
         },

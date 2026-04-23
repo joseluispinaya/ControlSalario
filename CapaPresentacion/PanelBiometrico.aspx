@@ -48,6 +48,14 @@
             .input-atraso:focus {
                 box-shadow: 0 0 6px rgba(40,167,69,.4);
             }
+
+        .input-error {
+            border: 2px solid #dc3545 !important; /* Rojo Bootstrap */
+        }
+
+            .input-error:focus {
+                box-shadow: 0 0 6px rgba(220,53,69,.5) !important;
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="titulo" runat="server">

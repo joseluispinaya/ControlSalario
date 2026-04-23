@@ -408,8 +408,10 @@
     <Content Include="MasterSecretarias\jsSecre\AsignacionDoc.js" />
     <Content Include="MasterSecretarias\jsSecre\Masterpa.js" />
     <Content Include="MasterSecretarias\jsSecre\PanelMaterias.js" />
+    <Content Include="MasterSecretarias\jsSecre\PanelPlanilla.js" />
     <Content Include="MasterSecretarias\PanelInicio.aspx" />
     <Content Include="MasterSecretarias\PanelMaterias.aspx" />
+    <Content Include="MasterSecretarias\PanelPlanilla.aspx" />
     <Content Include="PanelBiometrico.aspx" />
     <Content Include="PanelCarreras.aspx" />
     <Content Include="PanelDocentes.aspx" />
@@ -466,6 +468,13 @@
     </Compile>
     <Compile Include="MasterSecretarias\PanelMaterias.aspx.designer.cs">
       <DependentUpon>PanelMaterias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSecretarias\PanelPlanilla.aspx.cs">
+      <DependentUpon>PanelPlanilla.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterSecretarias\PanelPlanilla.aspx.designer.cs">
+      <DependentUpon>PanelPlanilla.aspx</DependentUpon>
     </Compile>
     <Compile Include="PanelBiometrico.aspx.cs">
       <DependentUpon>PanelBiometrico.aspx</DependentUpon>

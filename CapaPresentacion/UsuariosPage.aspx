@@ -32,23 +32,21 @@
                     </div>
 
 
-                    <div class="row mt-3">
-                        <div class="col-lg-12 col-sm-12 col-12">
-                            <table id="tbDatas" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Imagen</th>
-                                        <th>Usuarios</th>
-                                        <th>Nro CI</th>
-                                        <th>Correo</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table id="tbDatas" class="table table-hover mb-0" cellspacing="0" width="100%">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="text-center" style="width: 60px;">Foto</th>
+                                    <th>Usuario y Asignación</th>
+                                    <th>Rol</th>
+                                    <th>Nro CI</th>
+                                    <th>Correo</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center" style="width: 100px;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,12 @@ namespace CapaPresentacion
         }
 
         [WebMethod]
+        public static Respuesta<List<EMeses>> ListaMeses()
+        {
+            return NAsistenciaBiome.GetInstance().ListaMeses();
+        }
+
+        [WebMethod]
         public static Respuesta<List<EGestiones>> ListaGestiones()
         {
             return NGradoAcademico.GetInstance().ListaGestiones();
@@ -30,5 +36,32 @@ namespace CapaPresentacion
         {
             return NAsignacionDocen.GetInstance().AsignacionBiometrico(IdCarrera, IdGestion);
         }
+
+        [WebMethod(EnableSession = true)]
+        public static Respuesta<int> GuardarBiometrico(List<BiometricoInputDTO> listaAtrasos, int idMes)
+        {
+            if (HttpContext.Current.Session["UsuarioLogueado"] == null)
+            {
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Su sesión ha expirado. Recargue la página." };
+            }
+
+            try
+            {
+                if (listaAtrasos == null || !listaAtrasos.Any())
+                {
+                    return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "No se encontró datos en la lista de minutos." };
+                }
+
+                EUsuarios usuari = (EUsuarios)HttpContext.Current.Session["UsuarioLogueado"];
+
+                return NAsistenciaBiome.GetInstance().GuardarBiometrico(listaAtrasos, idMes, usuari.IdUsuario);
+
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Ocurrió un error: " + ex.Message };
+            }
+        }
+
     }
 }

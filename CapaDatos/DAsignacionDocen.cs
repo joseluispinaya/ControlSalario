@@ -143,6 +143,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 response.Estado = false;
+                response.Valor = "error";
                 response.Mensaje = $"Error al guardar: {ex.Message}";
             }
             return response;
@@ -209,6 +210,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 response.Estado = false;
+                response.Valor = "error";
                 response.Mensaje = $"Error al actualizar: {ex.Message}";
             }
             return response;

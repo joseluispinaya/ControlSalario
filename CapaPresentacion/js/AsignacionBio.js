@@ -1,8 +1,46 @@
 ﻿
 $(document).ready(function () {
+    $("#cboCarreras").empty().append('<option value="">-- Seleccione grado primero --</option>');
     cargarGestiones();
     cargarGradosAcadeTable();
+    cargarMeses();
 });
+
+function cargarMeses() {
+
+    // Mostramos un texto de "Cargando..." mientras esperamos la respuesta
+    $("#cboMes").html('<option value="">Cargando...</option>');
+
+    $.ajax({
+        url: "PanelBiometrico.aspx/ListaMeses",
+        type: "POST",
+        data: "{}", // <-- Mejor compatibilidad con WebMethods sin parámetros
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        success: function (response) {
+            if (response.d.Estado) {
+
+                // 1. Empezamos con la opción por defecto
+                let opcionesHTML = '<option value="">Seleccione un Mes</option>';
+
+                // 2. Concatenamos todas las opciones en la variable (en memoria)
+                $.each(response.d.Data, function (i, row) {
+                    opcionesHTML += `<option value="${row.IdMes}">${row.NombreMes}</option>`;
+                });
+
+                // 3. Inyectamos todo al DOM en un solo movimiento
+                $("#cboMes").html(opcionesHTML);
+
+            } else {
+                $("#cboMes").html('<option value="">Error al cargar</option>');
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+            $("#cboMes").html('<option value="">Error de conexión</option>');
+        }
+    });
+}
 
 function cargarGradosAcadeTable() {
 
@@ -48,7 +86,7 @@ function cargarGradosAcadeTable() {
 
 $("#cboGradosData").on("change", function () {
     const idGrados = $(this).val();
-
+    $("#tbData tbody").html("");
     $("#cboCarreras").empty().append('<option value="">Seleccione Carrera</option>');
     $("#cboCarreras").prop("disabled", true);
 
@@ -245,33 +283,42 @@ function cargarDatosBio(idCarrera, idGestion) {
 
 $('#btnRegistroBio').on('click', function () {
 
-    // let idMes = $("#cboMes").val();
+    let idMes = $("#cboMes").val();
     let listaFinal = [];
     let valido = true;
+    let primerInputInvalido = null;
 
     $('#btnRegistroBio').prop('disabled', true);
 
-    // if (idMes === "") {
-    //     MostrarToastZer("Por favor, seleccione un Mes.", "Atención", "warning");
-    //     $("#cboMes").focus();
-    //     $('#btnRegistroBio').prop('disabled', false);
-    //     return;
-    // }
+    if (idMes === "") {
+        MostrarToastZer("Por favor, seleccione un Mes.", "Atención", "warning");
+        $("#cboMes").focus();
+        $('#btnRegistroBio').prop('disabled', false);
+        return;
+    }
 
     $(".cantidad-input").each(function () {
+        let inputSelect = $(this);
+        let valor = inputSelect.val();
 
-        let valor = $(this).val();
+        // 1. Limpiamos nuestra clase de error por si ya lo corrigió
+        inputSelect.removeClass("input-error");
 
-        // Validación: vacío, NaN, negativo o no número
+        // 2. Validación de respaldo (por si burlaron tu evento 'input')
         if (valor === "" || isNaN(valor) || parseInt(valor) < 0) {
-
             valido = false;
 
+            // Le aplicamos tu nueva clase roja que respeta tus bordes
+            inputSelect.addClass("input-error");
+
+            if (!primerInputInvalido) {
+                primerInputInvalido = inputSelect;
+            }
         } else {
             let minutos = parseInt(valor);
-            let index = $(this).data("index");
+            let index = inputSelect.data("index");
 
-            // Agregamos a la lista
+            // 3. Agregamos a la lista, asegurando que si es 0 también se mande
             listaFinal.push({
                 IdAsignacion: listaDatosBio[index].IdAsignacion,
                 TotalMinutosAtraso: minutos
@@ -281,24 +328,62 @@ $('#btnRegistroBio').on('click', function () {
 
     // Si hay error, no registra
     if (!valido) {
-        MostrarAlerta("¡Advertencia!", "Verifique los minutos ingresados", "warning");
-
+        MostrarAlerta("¡Advertencia!", "Verifique los minutos ingresados. Hay valores no válidos.", "warning");
+        if (primerInputInvalido) primerInputInvalido.focus();
         $('#btnRegistroBio').prop('disabled', false);
         return;
     }
 
-    console.log(listaFinal);
-
-    $("#cargann").LoadingOverlay("show");
-
-    setTimeout(function () {
-
-        $("#cargann").LoadingOverlay("hide");
+    // Si no cargaron datos en la tabla aún
+    if (listaFinal.length === 0) {
+        MostrarToastZer("No hay docentes en la lista para registrar.", "Atención", "info");
         $('#btnRegistroBio').prop('disabled', false);
-    }, 3000);
+        return;
+    }
 
+    //console.log(listaFinal);
 
+    // Si todo está perfecto, disparamos el AJAX
+    registrarAsistenciaBio(listaFinal, idMes);
 
 });
+
+function registrarAsistenciaBio(listaFinal, idMes) {
+    $("#cargann").LoadingOverlay("show");
+
+    $.ajax({
+        type: "POST",
+        url: "PanelBiometrico.aspx/GuardarBiometrico",
+        data: JSON.stringify({ listaAtrasos: listaFinal, idMes: parseInt(idMes) }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#cargann").LoadingOverlay("hide");
+
+            AlertaTimerTipo(
+                response.d.Estado ? '¡Excelente!' : 'Atención',
+                response.d.Mensaje,
+                response.d.Valor
+            );
+
+            if (response.d.Estado) {
+                // Limpiamos la tabla visualmente y vaciamos el array
+                $("#tbData tbody").html("");
+                listaDatosBio = [];
+
+                // Opcional: Podrías resetear el combo del mes aquí si lo deseas
+                $("#cboMes").val("");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            $("#cargann").LoadingOverlay("hide");
+            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+            MostrarToastZer("No se pudo conectar con el servidor.", "Atención", "error");
+        },
+        complete: function () {
+            $('#btnRegistroBio').prop('disabled', false);
+        }
+    });
+}
 
 // fin

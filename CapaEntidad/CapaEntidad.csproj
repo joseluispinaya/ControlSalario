@@ -42,8 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\AsigBiometricoDTO.cs" />
+    <Compile Include="DTOs\BiometricoInputDTO.cs" />
+    <Compile Include="DTOs\DatosParaPlanillaDTO.cs" />
     <Compile Include="DTOs\MateriasDTO.cs" />
     <Compile Include="DTOs\ObtenerAsigDocDTO.cs" />
+    <Compile Include="DTOs\PlanillaCalculadaDTO.cs" />
     <Compile Include="DTOs\UsuarioDTO.cs" />
     <Compile Include="Entidades\EAsignacionDocen.cs" />
     <Compile Include="Entidades\EAsistenciaBiome.cs" />
