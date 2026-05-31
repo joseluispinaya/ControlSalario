@@ -6,6 +6,20 @@
     <link href="assets/plugins/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .btn-emi-warning {
+            background-color: #FFD100;
+            color: #02264D;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-emi-warning:hover {
+                background-color: #E6BC00;
+                color: #02264D;
+                transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+            }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="titulo" runat="server">
     Panel de Carreras
@@ -14,7 +28,7 @@
     <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header bg-primary py-2 px-4">
+            <div class="card-header py-2 px-4" style="background-color: #02264D;">
                 <h3 class="card-title m-0"><i class="fas fa-bookmark mr-2"></i>Lista de Carreras</h3>
             </div>
             <div class="card-body">
@@ -35,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <button type="button" id="btnRegistro" class="btn btn-success"><i class="fas fa-edit mr-2"></i>Nuevo Registro</button>
+                                <button type="button" id="btnRegistro" class="btn btn-emi-warning px-5 shadow font-weight-bold"><i class="fas fa-edit mr-2"></i>Nuevo Registro</button>
                             </div>
                         </div>
                     </div>

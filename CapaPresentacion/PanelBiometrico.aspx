@@ -56,6 +56,19 @@
             .input-error:focus {
                 box-shadow: 0 0 6px rgba(220,53,69,.5) !important;
             }
+
+        .btn-emi-warning {
+            background-color: #FFD100;
+            color: #02264D;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-emi-warning:hover {
+                background-color: #E6BC00;
+                color: #02264D;
+                transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="titulo" runat="server">
@@ -65,7 +78,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card" id="cargann">
-                <div class="card-header bg-primary py-2 px-4">
+                <div class="card-header py-2 px-4" style="background-color: #02264D;">
                     <h3 class="card-title m-0"><i class="fas fa-bookmark mr-2"></i>Control Biometrico Asistencia</h3>
                 </div>
                 <div class="card-body">
@@ -99,7 +112,7 @@
                         </div>
 
                         <div class="col-md-2">
-                            <button type="button" id="btnBuscar" class="btn btn-sm btn-primary"><i class="fas fa-search-plus mr-2"></i>Buscar</button>
+                            <button type="button" id="btnBuscar" class="btn btn-emi-warning btn-sm px-5 shadow font-weight-bold"><i class="fas fa-search-plus mr-2"></i>Buscar</button>
                         </div>
                     </div>
 

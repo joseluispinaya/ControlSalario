@@ -14,6 +14,18 @@
             object-fit: cover; /* Evita que la imagen se estire o aplaste */
             object-position: center; /* Asegura que se vea el centro de la foto */
         }
+        .btn-emi-warning {
+            background-color: #FFD100;
+            color: #02264D;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-emi-warning:hover {
+                background-color: #E6BC00;
+                color: #02264D;
+                transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="titulo" runat="server">
@@ -23,14 +35,14 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header bg-primary py-2 px-4">
+                <div class="card-header py-2 px-4" style="background-color: #02264D;">
                     <h3 class="card-title m-0"><i class="fas fa-user-check mr-2"></i>Lista Docentes Registrados</h3>
                 </div>
                 <div class="card-body">
                     <div class="row justify-content-center mb-4">
-                        <button type="button" id="btnRegistro" class="btn btn-success btn-sm mr-3"><i class="fas fa-user-plus mr-2"></i>Nuevo Registro</button>
-                        <button type="button" id="btnSwaler" class="btn btn-success btn-sm mr-3"><i class="fas fa-address-book mr-2"></i>Alerta</button>
-                        <button type="button" id="btnTimerau" class="btn btn-info btn-sm"><i class="fas fa-address-book mr-2"></i>Timer aut</button>
+                        <button type="button" id="btnRegistro" class="btn btn-emi-warning btn-lg px-5 shadow font-weight-bold"><i class="fas fa-user-plus mr-2"></i>Nuevo Registro</button>
+                        <%--<button type="button" id="btnSwaler" class="btn btn-success btn-sm mr-3"><i class="fas fa-address-book mr-2"></i>Alerta</button>
+                        <button type="button" id="btnTimerau" class="btn btn-info btn-sm"><i class="fas fa-address-book mr-2"></i>Timer aut</button>--%>
                     </div>
 
 

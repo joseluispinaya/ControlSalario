@@ -83,12 +83,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AsistenciaDiaria.aspx" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\elements.css" />
     <Content Include="assets\css\icons.css" />
     <Content Include="assets\css\inpfile.css" />
     <Content Include="assets\css\loginvoca.css" />
     <Content Include="assets\css\miestilo.css" />
+    <Content Include="assets\css\miestiloze.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\css\variables.css" />
     <Content Include="assets\css\_components.css" />
@@ -397,6 +399,7 @@
     <Content Include="images\sinFoto.png" />
     <Content Include="Inicio.aspx" />
     <Content Include="js\AsignacionBio.js" />
+    <Content Include="js\AsistenciaDiaria.js" />
     <Content Include="js\Login.js" />
     <Content Include="js\Masterpa.js" />
     <Content Include="js\PanelCarreras.js" />
@@ -420,6 +423,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsistenciaDiaria.aspx.cs">
+      <DependentUpon>AsistenciaDiaria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AsistenciaDiaria.aspx.designer.cs">
+      <DependentUpon>AsistenciaDiaria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HomeMaster.Master.cs">
       <DependentUpon>HomeMaster.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
